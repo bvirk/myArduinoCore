@@ -1,0 +1,17 @@
+#/bin/bash
+function mksl() {
+    if [ ! -e `basename $1` ]; then
+        ln -s $1 `basename $1`
+    fi
+}
+mksl ../Libraries/Arduino-Temperature-Control-Library/DallasTemperature.cpp
+mksl ../Libraries/DS18b20/ds18b20.cpp
+mksl ../Libraries/EEPromObj/eetimer.cpp
+mksl ../Libraries/OneWire/OneWire.cpp
+mksl ../Libraries/ProcListLoop/task.cpp
+mksl ../Libraries/ProcListLoop/taskrunner.cpp
+mksl ../Libraries/RichEnums/commands.cpp
+mksl ../Libraries/RichEnums/enumcmd.cpp
+mksl ../Libraries/RichEnums/enumpins.cpp
+mksl ../Libraries/Sendf/Sendf.cpp
+mksl ../Libraries/Utils/strtokext.cpp

@@ -13,7 +13,6 @@
 #include <stdio.h>
 #include <math.h>
 
-#define min(a,b) ((a)<(b)?(a):(b))
 
 const int8_t sendf_textSize=0x3f;
 char sendf_text[0x40];
@@ -30,6 +29,34 @@ inline int8_t sendfCommon(const char * fmt, va_list args) {
     Serial.flush();
 	return len;
 }
+
+/*
+*/
+//nuværende kald
+
+//sendf(char *) -> macro ->sendflash(F(char*))
+//sendf(F(char)) -> eksisterende
+
+
+
+
+int8_t sendflash(const __FlashStringHelper *ffmt, ...) {
+	va_list args;
+	va_start(args, ffmt);
+	
+	PGM_P p = reinterpret_cast<PGM_P>(ffmt);
+	uint8_t flen = strnlen_P(p,0x40);
+	char fmt[flen+1];
+	strncpy_P(fmt,p,flen+1);
+	fmt[flen] = '\0';
+	
+	int8_t len = sendfCommon(fmt,args);
+	va_end(args);
+	return len;
+}
+
+#ifndef sendfFlashAlways 
+
 
 int8_t sendf(const char * fmt, ...) {
 	va_list args;
@@ -54,9 +81,14 @@ int8_t sendf(const __FlashStringHelper *ffmt, ...) {
 	return len;
 }
 
-int8_t sendendl() {
-    return sendf(F("\n"));
-}
+#endif
+
+
+
+int8_t sendpchar(const __FlashStringHelper *fmt, const char * arg1) { return sendflash(fmt,arg1); }
+int8_t sendint(const __FlashStringHelper *fmt, int arg1) { return sendflash(fmt,arg1); }
+int8_t sendDirect(const __FlashStringHelper *fmt) { return sendflash(fmt); }
+
 
 
 inline char * dtostre(double d, uint8_t prec) {
@@ -78,7 +110,7 @@ char * (*toStr[])(double, uint8_t) = {dtostre,dtostrf};
   *	scientific vs decimal number
   */
 inline int8_t typeLengthPrecision(const char * fmt) {
-    if (*fmt == '%')
+    if (*fmt == '%') {
         if (*(fmt+1) =='e' || *(fmt+1) =='f')
             return DOUBLE_DEFAULT_PRECISION |  (*(fmt+1) =='f' ? 0x50 : 0x10);
         else
@@ -86,6 +118,7 @@ inline int8_t typeLengthPrecision(const char * fmt) {
                 char prec = *(fmt+2);
                 return ( isdigit(prec) ? (prec < '8' ? int(prec-48) : 7) : DOUBLE_DEFAULT_PRECISION ) | (*(fmt+3) == 'f' ? 0x60 : 0x20);
             }
+    }
     return -1;
 }
 

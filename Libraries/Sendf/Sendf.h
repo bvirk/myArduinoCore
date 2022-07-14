@@ -21,9 +21,17 @@
   \param variadic arguments can not be of type float or double.
   \return length of sendt stream.
 */
+#ifndef sendfFlashAlways
 int8_t sendf(const char * fmt, ...);
 int8_t sendf(const __FlashStringHelper *ffmt, ...);
-int8_t sendendl();
+#endif
+int8_t sendflash(const __FlashStringHelper *ffmt, ...);
+
+
+//int8_t sendfarg1(const char *fmt, const char * arg1);
+int8_t sendpchar(const __FlashStringHelper *fmt, const char * arg1);
+int8_t sendint(const __FlashStringHelper *fmt, int value);
+int8_t sendDirect(const __FlashStringHelper *fmt);
 
 //! Serial 'printf' for ONLY float or double arguments. 
 /*!
@@ -69,4 +77,11 @@ inline char * dtostre(double d, uint8_t prec);
 */
 inline char * dtostrf(double d, uint8_t prec);
 
+#define sln(x) sendpchar(F("%s\n"),(x))
+#define dln(x) sendint(F("%d\n"),(x))
+#define soln(x,...) sendDirect(F(#x #__VA_ARGS__ "\n"))
+#define newln sendflash(F("\n"));
+#ifdef sendfFlashAlways
+  #define sendf(x,...) sendflash(F(x),##__VA_ARGS__)
+#endif
 #endif
