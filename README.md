@@ -21,7 +21,8 @@ Despite being c++, a very c way programming style is used. Its a principle to av
 
 Inital heap use would be ok, but I newer used any in this project.
 
-I have not looked deep in the string heap usage many online examples and free source uses, instead i wrote my own sendf(F(string),...) which together with some really homebrewed macroes  offers lot more condensed expressivity. Loves of the most ugly one.  
+I have not looked deep in the string heap usage many online examples and free source uses, instead i wrote my own sendf(F(string),...) which together with some really homebrewed macroes  offers lot more condensed expressivity.  
+Loves the most ugly one.  
 
 file:Sendf.h
 ```
@@ -35,7 +36,7 @@ soln( in whi,st, solo nolo rocks);
 ```
 
 ## template workarounds
-I wasn't able to link tree level in each other specified template parameters, being shareable among translation units.
+I wasn't able to link tree level, in each other specified, template parameters, being shareable among translation units.
 Well, i havn't the time to test blow code size anyway and settled for some ugly constants. Nothing works if manual typed given sizes for enumpins and enumcmd  are not correct - funny how bufferoverflow in translation unit not even used can hang an arduino uno.
 
 
