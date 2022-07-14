@@ -41,7 +41,9 @@ uint8_t EETimer::added(uint8_t id, uint8_t start, uint8_t period) {
 }
 
 time_t EETimer::atHour(uint8_t hour, uint8_t displacement) {
-	return  ((dateTime+millis()/1000-secSReset)/((time_t)ONE_DAY))*(time_t)ONE_DAY + (time_t)ONE_HOUR*hour+270*displacement;
+	time_t now = dateTime+millis()/1000-secSReset;
+	time_t dayFrac = now % (time_t)ONE_DAY;
+	return  now-dayFrac + (time_t)ONE_HOUR*hour+270*displacement;
 }
 
 

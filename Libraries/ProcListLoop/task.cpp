@@ -80,25 +80,27 @@ void fanCtl(TasksCtl & tc) {
 }
 
 void waterctl(TasksCtl & tc) {
-    static int8_t cd=20;
+#define countDown 12    
+    static int8_t cd=countDown;
     if (!cd--) {
-        cd=20;
+        cd=countDown;
         uint8_t bs = eeTimer.bedsSize();
 		if (bs) {
-			for (uint8_t i=0; i <bs; i++) {
+			for (uint8_t i=0; i <1;i++) { //bs; i++) {
 				Bed b = eeTimer.bedRef(i);
                 const char *name = pins.ofBedid(b.id)->name;
                 uint8_t pinNr = toInt(pins.ofBedid(b.id)->enumVar);
                 time_t now = eeTimer.now();
                 time_t start = eeTimer.atHour(b.start+6,b.id);
                 time_t stop = eeTimer.atHour(b.start+6,b.id)+60*(b.period+1);
+                //sendf("%ld,%ld\n",start,stop);
                 if (digitalRead(pinNr)) { // is on
-				    if ( now >= stop ) {
+				    if ( now > stop ) {
                         digitalWrite(pinNr,0);
                         tell("pin %s off",name);
                     }
                 } else
-				    if ( now >= start && now < stop) {
+				    if ( now > start && now < stop) {
                         digitalWrite(pinNr,1);
                         tell("pin %s on",name);
                     }
