@@ -1,8 +1,9 @@
 #include "../ProcListLoop/taskrunner.h"
 #include "../ProcListLoop/task.h"
-enum class cmd {PINSTAT,ALLOUT, OUT,IN,SETPINMODES,SETPINMODE,PLAY,TIME,ERR,BEDTID,FAN,TONE,VERBOSE};
+enum class cmd {PINSTAT,ALLOUT, OUT,IN,SETPINMODES,SETPINMODE,PLAY,TIME,ERR,BEDTID,FAN,TONE,VERBOSE,WATER
+				,CMDSCOUNT};
 
-#define CMDSCOUNT 13
+#define CMDSCOUNT static_cast<int>(cmd::CMDSCOUNT) 
 
 struct cmdProp {
 	cmd enumVar;

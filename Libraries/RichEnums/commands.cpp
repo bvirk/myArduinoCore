@@ -177,6 +177,20 @@ uint8_t verbose(uint8_t argc, char *argv[]) {
 	return 0;
 }
 
+uint8_t water(uint8_t argc, char *argv[]) {
+	if (argc > 1) {
+		if (isdigit(*argv[1])) 
+			pins.setBedPins(atoi(argv[1]) & 1);
+		else {
+			tasks::waterOn = !tasks::waterOn;
+			if (!tasks::verboseOn)
+				pins.setBedPins(0);
+		}
+	}
+	sln(tasks::waterOn ? "on" : "off");
+	return 0;
+}
+
 
 
 };

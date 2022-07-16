@@ -15,4 +15,5 @@ uint8_t setError(uint8_t argc, char *argv[]);
 uint8_t fan(uint8_t argc, char *argv[]);
 uint8_t tone(uint8_t argc, char *argv[]);
 uint8_t verbose(uint8_t argc, char *argv[]);
+uint8_t water(uint8_t argc, char *argv[]);
 };

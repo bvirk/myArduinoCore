@@ -35,6 +35,7 @@ cmdProp cmdArray[] = {
     ,{cmd::BEDTID		,"bed"			,cmdFuncs::bedtid		}
     ,{cmd::TONE		    ,"tone"			,cmdFuncs::tone	    	}
     ,{cmd::VERBOSE		,"verbose"		,cmdFuncs::verbose		}
+    ,{cmd::WATER		,"Water"		,cmdFuncs::water		}
 };
 	
 

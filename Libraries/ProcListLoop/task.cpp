@@ -16,6 +16,7 @@ uint16_t offTime=500;
 float fanSwitchTemp = 30.0;
 bool toneOn=true;
 bool verboseOn=false;
+bool waterOn=true;
 
 
 //  _          _                    __                  _   _                 
@@ -81,7 +82,7 @@ void fanCtl(TasksCtl & tc) {
 
 void waterctl(TasksCtl & tc) {
     uint8_t bs = eeTimer.bedsSize();
-    if (bs) {
+    if (bs && waterOn) {
         static uint8_t i=0;
         static uint8_t advance=1;
         Bed b = eeTimer.bedRef(i);

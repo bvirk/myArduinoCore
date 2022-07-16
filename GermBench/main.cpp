@@ -29,8 +29,8 @@ int main(void) {
 	cmds.loop("verbose on");
 	while(true) {
 		digitalWrite(LED_BUILTIN,!digitalRead(LED_BUILTIN));
-		delay(1000);
-		tone(8,3000,50);
+		delay(200);
+		//tone(8,3000,50);
 	}
 }
 void __assert(const char *__func, const char *__file, int __lineno, const char *__sexp) {

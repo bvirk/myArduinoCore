@@ -7,6 +7,7 @@ namespace tasks  { // KEEP ALIGNED AT SOURCE LINE 7
 extern float fanSwitchTemp;
 extern bool toneOn;
 extern bool verboseOn;
+extern bool waterOn;
 
 
 

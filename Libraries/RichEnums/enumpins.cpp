@@ -48,6 +48,13 @@ void Pin::setAllOutput(uint8_t level) {
             digitalWrite(pinNr(i),level);
 }
 
+
+void Pin::setBedPins(uint8_t level) {
+    for (int i=0; i < size; i++)
+        if (pProps[i]->bedindex != NONAVAIL)
+            digitalWrite(pinNr(i),level);
+}
+
 void Pin::setPinMode(const char* pinStr, uint8_t dir) { 
     assert(dir == INPUT || dir == OUTPUT);
     pinProp * p = const_cast<pinProp *>(this->operator()((pinStr)));
