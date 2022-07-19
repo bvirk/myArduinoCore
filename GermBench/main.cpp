@@ -27,9 +27,13 @@ int main(void) {
 	if (err)
 		sendf("Pending error %u setted at  %s\n",(uint16_t)err,eeTimer.cerrortime());
 	cmds.loop("verbose on");
+	for (int i=10; i; i--) {
+		tone(8,3000,50);
+		delay(150);
+	}
 	while(true) {
 		digitalWrite(LED_BUILTIN,!digitalRead(LED_BUILTIN));
-		delay(200);
+		delay(100);
 		//tone(8,3000,50);
 	}
 }
